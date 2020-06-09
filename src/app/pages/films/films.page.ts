@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-films',
@@ -16,7 +17,9 @@ export class FilmsPage implements OnInit {
   constructor(private router: Router, private api: ApiService) { }
  
   ngOnInit() {
-    this.films = this.api.getFilms();
+    this.films = this.api.getFilms().pipe(
+      tap(r => console.log(r))
+    );
   }
 
   openDetails(film) {
